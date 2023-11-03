@@ -15,6 +15,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
 
+
 # Define Post model (you may need additional fields)
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,12 +31,33 @@ def create_post():
     db.session.commit()
     return redirect(url_for('home'))
 
+
 # Define Message model (you may need additional fields)
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(140), nullable=False)
     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     receiver_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+@app.route('/messages')
+@login_required
+def messages():
+    messages = Message.query.filter(Message.receiver_id == current_user.id)
+    return render_template('messages.html', messages=messages)
+
+
+# Add a new route to handle sending messages
+@app.route('/send_message/<int:user_id>', methods=['POST'])
+@login_required
+def send_message(user_id):
+    content = request.form['message_content']
+    sender_id = current_user.id
+    new_message = Message(content=content, sender_id=sender_id, receiver_id=user_id)
+    db.session.add(new_message)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+
 
 # Initialize Flask-Login
 login_manager = LoginManager(app)

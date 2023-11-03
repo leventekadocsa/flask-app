@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your head content here -->
+</head>
+<body>
+    <header>
+        <!-- Your header content -->
+    </header>
+    <main>
+        <h2>Messages:</h2>
+        <ul>
+            {% for message in messages %}
+                <li>{{ message.content }}</li>
+            {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>
+In this template, we're iterating over the messages and displaying their content.
+
+With these changes, you should now have the ability to send messages to other users from the home page. When a user clicks the "Send Message" button on a post, they'll be directed to the messages page where they can view and send messages.
+
+
+
+
+

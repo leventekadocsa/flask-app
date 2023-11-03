@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/home.css') }}">
 </head>
 <body>
     <header>
@@ -13,8 +14,8 @@
         </form>
     </header>
     <main>
-        
-        <!-- Add a form for creating new posts -->
+
+                <!-- Add a form for creating new posts -->
         <div>
             <h2>Create a New Post:</h2>
             <form action="{{ url_for('create_post') }}" method="post">
@@ -26,9 +27,15 @@
         <h2>List of Posts:</h2>
         <ul>
             {% for post in posts %}
-                <li>{{ post.content }}</li>
+                <li>
+                    {{ post.content }}
+                    <form action="{{ url_for('send_message', user_id=post.user_id) }}" method="post" style="display:inline;">
+                        <button type="submit">Send Message</button>
+                    </form>
+                </li>
             {% endfor %}
         </ul>
+    
 
     </main>
 </body>
