@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome, {{ current_user.username }}!</h1>
+        <form action="{{ url_for('logout') }}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </header>
+    <main>
+        
+        <!-- Add a form for creating new posts -->
+        <div>
+            <h2>Create a New Post:</h2>
+            <form action="{{ url_for('create_post') }}" method="post">
+                <input type="text" name="content" placeholder="Enter your post content" required>
+                <button type="submit">Post</button>
+            </form>
+        </div>
+
+        <h2>List of Posts:</h2>
+        <ul>
+            {% for post in posts %}
+                <li>{{ post.content }}</li>
+            {% endfor %}
+        </ul>
+
+    </main>
+</body>
+</html>
