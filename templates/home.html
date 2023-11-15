@@ -7,36 +7,59 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='/home.css') }}">
 </head>
 <body>
-    <header>
-        <h1>Welcome, {{ current_user.username }}!</h1>
-        <form action="{{ url_for('logout') }}" method="post">
-            <button type="submit">Logout</button>
-        </form>
+    <header class="header">
+        <h1 class="welcome">Welcome, {{ current_user.username }}!</h1>
+        <button type="button" class="logout-button" onclick="logout()">Logout</button>
+        <button class="button-1" onclick="buttonAction('action1')">Button 1</button>
+        <button class="button-2" onclick="buttonAction('action2')">Button 2</button>
     </header>
+
     <main>
 
-                <!-- Add a form for creating new posts -->
-        <div>
+        <!-- Add a form for creating new posts -->
+        <div class="post-form">
             <h2>Create a New Post:</h2>
             <form action="{{ url_for('create_post') }}" method="post">
-                <input type="text" name="content" placeholder="Enter your post content" required>
-                <button type="submit">Post</button>
+                <input type="text" name="title" class="post-title" placeholder="Enter your post title" required><br>
+                <input type="text" name="content" class="post-content" placeholder="Enter your post content" required><br>
+                <button type="submit" class="post-button">Post</button>
             </form>
         </div>
 
         <h2>List of Posts:</h2>
-        <ul>
+        <ul class="post-list">
             {% for post in posts %}
-                <li>
+                <li class="post-item">
+                    <h3>{{ post.title }}</h3>
                     {{ post.content }}
                     <form action="{{ url_for('send_message', user_id=post.user_id) }}" method="post" style="display:inline;">
-                        <button type="submit">Send Message</button>
+                        <input type="text" name="message_content" placeholder="Enter your message content" required>
+                        <button type="submit" class="send-message-button">Send Message</button>
                     </form>
                 </li>
             {% endfor %}
         </ul>
-    
 
     </main>
 </body>
 </html>
+
+<script>
+
+    function logout() {
+        window.location.href = "{{ url_for('logout') }}";
+    }
+
+    function buttonAction(action) {
+        if (action === 'action1') {
+            // TODO: Implement action for Button 1
+        } else if (action === 'action2') {
+            // TODO: Implement action for Button 2
+            window.location.href = "{{ url_for('messages') }}";
+        }
+    }
+</script>
+
+
+
+

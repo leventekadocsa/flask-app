@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.instance_path, 'site.db')
 db = SQLAlchemy(app)
 
 
@@ -19,14 +19,16 @@ class User(UserMixin, db.Model):
 # Define Post model (you may need additional fields)
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False) 
     content = db.Column(db.String(140), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 # Add a new route to handle post creation
 @app.route('/create_post', methods=['POST'])
 @login_required
 def create_post():
+    title = request.form['title']
     content = request.form['content']
-    new_post = Post(content=content, user_id=current_user.id)
+    new_post = Post(title=title, content=content, user_id=current_user.id)
     db.session.add(new_post)
     db.session.commit()
     return redirect(url_for('home'))
