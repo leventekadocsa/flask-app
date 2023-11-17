@@ -25,12 +25,18 @@
 }
 
 .post-list {
-    list-style-type: none;
-    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .post-item {
-    margin-bottom: 10px;
+    width: 300px; /* Adjust the width as needed */
+    margin: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    overflow: hidden; /* Clear the float from the form elements */
 }
 .post-item h3 {
     font-size: 1.2em;

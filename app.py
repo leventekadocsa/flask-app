@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import os
@@ -31,6 +31,21 @@ def create_post():
     new_post = Post(title=title, content=content, user_id=current_user.id)
     db.session.add(new_post)
     db.session.commit()
+    return redirect(url_for('home'))
+
+@app.route('/delete_post/<int:post_id>', methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+
+    # Check if the user is the author of the post
+    if current_user.id == post.user_id:
+        db.session.delete(post)
+        db.session.commit()
+        flash('Post deleted successfully!', 'success')
+    else:
+        flash('You are not authorized to delete this post.', 'danger')
+
     return redirect(url_for('home'))
 
 
