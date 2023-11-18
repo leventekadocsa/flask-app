@@ -3,67 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>GymConnect - Home Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='/home.css') }}">
 </head>
 <body>
-    <header class="header">
-        <h1 class="welcome">Welcome, {{ current_user.username }}!</h1>
-        <button type="button" class="logout-button" onclick="logout()">Logout</button>
-        <button class="button-1" onclick="buttonAction('action1')">Button 1</button>
-        <button class="button-2" onclick="buttonAction('action2')">Button 2</button>
-    </header>
+    <div class="header">
+        <div class="welc">
+            <h1 class="welcome">Welcome, {{ current_user.username }}!</h1>
+        </div>
+        <div class="user-button">
+            <div class="user">
+                <h1>{{ current_user.username[0] }}</h1>
+            </div>
+            <button type="button" class="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <button type="button" class="navbar-item" onclick="home()">Home</button>
+        <button type="button" class="navbar-item" onclick="profile()">Profile</button>
+        <button type="button" class="navbar-item" onclick="search()">Search</button>
+        <button type="button" class="navbar-item" onclick="messages()">Messages</button>
+        <button type="button" class="navbar-item" onclick="about()">About</button>
+    </div>
 
     <main>
-
         <!-- Add a form for creating new posts -->
         <div class="post-form">
             <h2>Create a New Post:</h2>
             <form action="{{ url_for('create_post') }}" method="post">
-                <input type="text" name="title" class="post-title" placeholder="Enter your post title" required><br>
-                <input type="text" name="content" class="post-content" placeholder="Enter your post content" required><br>
-                <button type="submit" class="post-button">Post</button>
+                <div class="new-post-container">
+                    <input type="text" name="title" class="post-title" placeholder="Enter your post title" required><br>
+                    <textarea name="content" class="post-content" rows="10" placeholder="Enter your post content" required></textarea>
+                    <button type="submit" class="post-button">Post</button>
+                </div>
             </form>
         </div>
 
-        <h2>List of Posts:</h2>
+        <h2>Posts:</h2>
         <ul class="post-list">
             {% for post in posts %}
                 <li class="post-item">
-                    <h3>{{ post.title }}</h3>
-                    {{ post.content }}
-                    <form action="{{ url_for('send_message', user_id=post.user_id) }}" method="post" style="display:inline;">
-                        <input type="text" name="message_content" placeholder="Enter your message content" required>
-                        <button type="submit" class="send-message-button">Send Message</button>
-                    </form>
-        
-                    <!-- Add a delete button for the user's own posts -->
-                    {% if current_user.id == post.user_id %}
-                        <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post" style="display:inline;">
-                            <button type="submit" class="delete-post-button">Delete</button>
+                    <div class="post">
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.content }}</p>
+                    </div>
+                    <div class="react">
+                        <!-- Add a message field and a message button for the other users' posts -->
+                        {% if current_user.id != post.user_id %}
+                        <form action="{{ url_for('send_message', user_id=post.user_id) }}" method="post" style="display:inline;">
+                            <input type="text" name="message_content" placeholder="Enter your message" required>
+                            <button type="submit" class="send-message-button">Send Message</button>
                         </form>
-                    {% endif %}
+                        {% endif %}
+
+                        <!-- Add a delete button for the user's own posts -->
+                        {% if current_user.id == post.user_id %}
+                            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post" style="display:inline;">
+                                <button type="submit" class="delete-post-button">Delete</button>
+                            </form>
+                        {% endif %}
+                    </div>
                 </li>
             {% endfor %}
         </ul>
 
     </main>
+    <footer class="footer">
+        <h4 class="impressum">University of Győr - Projektwork 1-2.</h4>
+        <h4 class="impressum">Kadocsa Levente ○ Székely Katalin ○ Szabó Dóra ○ Kovács Péter ○ Tóth Balázs</h4>
+    </footer>
 </body>
 </html>
 
 <script>
-
     function logout() {
         window.location.href = "{{ url_for('logout') }}";
     }
 
-    function buttonAction(action) {
-        if (action === 'action1') {
-            // TODO: Implement action for Button 1
-        } else if (action === 'action2') {
-            // TODO: Implement action for Button 2
-            window.location.href = "{{ url_for('messages') }}";
-        }
+    function home() {
+        window.location.href = "{{ url_for('home') }}";
+    }
+
+    function profile() {
+        window.location.href = "{{ url_for('profile') }}";
+    }
+
+    function search() {
+        window.location.href = "{{ url_for('search') }}";
+    }
+
+    function messages() {
+        window.location.href = "{{ url_for('messages') }}";
+    }
+
+    function about() {
+        window.location.href = "{{ url_for('about') }}";
     }
 </script>
 
