@@ -15,13 +15,13 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
 
-
 # Define Post model (you may need additional fields)
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False) 
     content = db.Column(db.String(140), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
 # Add a new route to handle post creation
 @app.route('/create_post', methods=['POST'])
 @login_required
@@ -74,8 +74,6 @@ def send_message(user_id):
     db.session.commit()
     return redirect(url_for('home'))
 
-
-
 # Initialize Flask-Login
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -123,6 +121,20 @@ def logout():
         return redirect(url_for('login'))
     return redirect(url_for('login'))  # This handles GET requests
 
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html')
+
+@app.route('/search')
+@login_required
+def search():
+    return render_template('search.html')
+
+@app.route('/about')
+@login_required
+def about():
+    return render_template('about.html')
 
 if __name__ == '__main__':
     with app.app_context():
