@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GymConnect - About</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/about.css') }}">
+</head>
+<body>
+    <div class="header">
+        <div class="welc">
+            <h1 class="welcome">About the GymConnect app</h1>
+        </div>
+        <div class="user-button">
+            <div class="user">
+                <h1>{{ current_user.username[0] }}</h1>
+            </div>
+            <button type="button" class="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <button type="button" class="navbar-item" onclick="home()">Home</button>
+        <button type="button" class="navbar-item" onclick="profile()">Profile</button>
+        <button type="button" class="navbar-item" onclick="search()">Search</button>
+        <button type="button" class="navbar-item" onclick="messages()">Messages</button>
+        <button type="button" class="navbar-item" onclick="about()">About</button>
+    </div>
+
+    <div class="middle-section">
+        <p>GymConnect is an app created for the Projectwork 1-2. subject at the University of Győr in 2023.</p>
+        <p>GymConnect is made by the GymConnect Team.</p>
+        <p>Members of the GymConnect Team:</p>
+        <ul>
+            <li>Kadocsa Levente</li>
+            <li>Székely Katalin</li>
+            <li>Szabó Dóra</li>
+            <li>Kovács Péter</li>
+            <li>Tóth Balázs</li>
+        </ul>
+    </div>
+
+    <footer class="footer">
+        <h4 class="impressum">University of Győr - Projektwork 1-2.</h4>
+        <h4 class="impressum">Kadocsa Levente ○ Székely Katalin ○ Szabó Dóra ○ Kovács Péter ○ Tóth Balázs</h4>
+    </footer>
+</body>
+</html>
+
+<script>
+    function logout() {
+        window.location.href = "{{ url_for('logout') }}";
+    }
+
+    function home() {
+        window.location.href = "{{ url_for('home') }}";
+    }
+
+    function profile() {
+        window.location.href = "{{ url_for('profile') }}";
+    }
+
+    function search() {
+        window.location.href = "{{ url_for('search') }}";
+    }
+
+    function messages() {
+        window.location.href = "{{ url_for('messages') }}";
+    }
+
+    function about() {
+        window.location.href = "{{ url_for('about') }}";
+    }
+</script>

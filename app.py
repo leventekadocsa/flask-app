@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import os
@@ -15,13 +15,13 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
 
-
 # Define Post model (you may need additional fields)
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False) 
     content = db.Column(db.String(140), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
 # Add a new route to handle post creation
 @app.route('/create_post', methods=['POST'])
 @login_required
@@ -31,6 +31,21 @@ def create_post():
     new_post = Post(title=title, content=content, user_id=current_user.id)
     db.session.add(new_post)
     db.session.commit()
+    return redirect(url_for('home'))
+
+@app.route('/delete_post/<int:post_id>', methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+
+    # Check if the user is the author of the post
+    if current_user.id == post.user_id:
+        db.session.delete(post)
+        db.session.commit()
+        flash('Post deleted successfully!', 'success')
+    else:
+        flash('You are not authorized to delete this post.', 'danger')
+
     return redirect(url_for('home'))
 
 
@@ -58,8 +73,6 @@ def send_message(user_id):
     db.session.add(new_message)
     db.session.commit()
     return redirect(url_for('home'))
-
-
 
 # Initialize Flask-Login
 login_manager = LoginManager(app)
@@ -108,6 +121,20 @@ def logout():
         return redirect(url_for('login'))
     return redirect(url_for('login'))  # This handles GET requests
 
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html')
+
+@app.route('/search')
+@login_required
+def search():
+    return render_template('search.html')
+
+@app.route('/about')
+@login_required
+def about():
+    return render_template('about.html')
 
 if __name__ == '__main__':
     with app.app_context():
