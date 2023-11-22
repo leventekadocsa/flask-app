@@ -1,5 +1,6 @@
 body {
-background-color: #ffffff;
+    background-color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 button {
@@ -10,7 +11,6 @@ button {
     background-color: #333;
     color: #fff;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
     padding: 10px;
     padding-top: 2px;
     border-radius: 5px;
@@ -21,7 +21,6 @@ button {
     background-color: #333;
     color: #fff;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
     padding: 10px;
     padding-top: 2px;
     border-radius: 5px;
@@ -62,7 +61,6 @@ button {
     width: 100px;
     margin-top: 10px;
     float: right;   
-    font-family: Arial, Helvetica, sans-serif;
     padding: 8px 16px;
     border: none;
     border-radius: 5px;
@@ -70,7 +68,6 @@ button {
 
 .post-form {
     margin-bottom: 20px;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .post-title, .post-content {
@@ -78,7 +75,6 @@ button {
     padding: 8px;
     margin-bottom: 10px;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .post-button {
@@ -101,7 +97,6 @@ button {
 .post-list {
     list-style-type: none;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .post-item {
@@ -109,7 +104,6 @@ button {
     margin-bottom: 5px;
     padding: 10px;
     padding-top: 2px;
-    font-family: Arial, Helvetica, sans-serif;
     border-style: solid;
     border-radius: 5px;
     border-color: #333;
@@ -125,7 +119,6 @@ button {
     color: #fff;
     border: none;
     cursor: pointer;
-    font-family: Arial, Helvetica, sans-serif;
     margin-left: 10px;
     margin-top: 5px;
     border-radius: 5px;
@@ -142,7 +135,6 @@ button {
 }
 
 h2{
-    font-family: Arial, Helvetica, sans-serif;
     color: #333;
 }
 
@@ -168,7 +160,6 @@ li {
     color: #f4f4f4;
     cursor:pointer;
     font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
     float: left;
     text-align: center;
     width: 20%;
@@ -186,8 +177,21 @@ li {
     color: #fff;
     border: none;
     cursor: pointer;
-    font-family: Arial, Helvetica, sans-serif;
     margin-top: 5px;
     padding: 8px 16px;
     border-radius: 5px;
+}
+
+.creator {
+    background-color: #ff9900;
+    color: #fff;
+    width: 100px;
+    height: 15px;
+    border: none;
+    border-radius: 5px;
+    
+    text-align: center;
+    margin-top: 10px;
+    padding: 8px 16px;
+    font-weight: bold;
 }

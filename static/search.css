@@ -7,6 +7,18 @@ button {
     font-weight: bold;
 }
 
+.search-btn {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    width: 100px;
+    margin-top: 10px;  
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+}
+
 h2 {
     color: #333;
 }
@@ -142,4 +154,27 @@ h2 {
 .post-item h3 {
     font-size: 1.2em;
     color: #333;
+}
+
+.send-message-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 8px 16px;
+}
+
+.delete-post-button {
+    background-color: #ff392e;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 5px;
+    padding: 8px 16px;
+    border-radius: 5px;
 }
