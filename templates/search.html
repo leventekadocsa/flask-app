@@ -28,11 +28,40 @@
     </div>
 
     <h2>Search in posts:</h2>
-    <div class="search-container">
-        <input type="text" id="searchinput" onkeyup="" placeholder="Search.." title="Type in something..">
-    </div>
+    <form class="search-container">
+        <input type="text" id="searchinput" placeholder="Search.." title="Type in something..">
+        <button type="button" class="search-btn" onclick="searchinposts" >Search</button>
+    </form>
 
     <h2>Results:</h2>
+    <ul class="post-list">
+        {% for post in posts %}
+            {% if 'Budapest' in post.content %} 
+                <li class="post-item">
+                    <div class="post">
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.content }}</p>
+                    </div>
+                    <div class="react">
+                        <!-- Add a message field and a message button for the other users' posts -->
+                        {% if current_user.id != post.user_id %}
+                        <form action="{{ url_for('send_message', user_id=post.user_id) }}" method="post" style="display:inline;">
+                            <input type="text" name="message_content" placeholder="Enter your message" required>
+                            <button type="submit" class="send-message-button">Send Message</button>
+                        </form>
+                        {% endif %}
+
+                        <!-- Add a delete button for the user's own posts -->
+                        {% if current_user.id == post.user_id %}
+                            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post" style="display:inline;">
+                                <button type="submit" class="delete-post-button">Delete</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endif %}
+        {% endfor %}
+    </ul>
 
     <footer class="footer">
         <h4 class="impressum">University of Győr - Projektwork 1-2.</h4>

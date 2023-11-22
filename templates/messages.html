@@ -36,7 +36,11 @@
                         {{ message.content }}
                     </div>
                     <div class="mes-sender">
-                            {{ message.sender_id }}
+                        {% for user in users %}
+                            {% if user.id == message.sender_id %}
+                                {{ user.username }}
+                            {% endif %}
+                        {% endfor %}               
                     </div>
                 </div>  
             {% endfor %}

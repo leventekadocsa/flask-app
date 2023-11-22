@@ -48,11 +48,18 @@
                         <h3>{{ post.title }}</h3>
                         <p>{{ post.content }}</p>
                     </div>
+                    <div class="creator">
+                        {% for user in users %}
+                            {% if user.id == post.user_id %}
+                                {{ user.username }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                     <div class="react">
                         <!-- Add a message field and a message button for the other users' posts -->
                         {% if current_user.id != post.user_id %}
                         <form action="{{ url_for('send_message', user_id=post.user_id) }}" method="post" style="display:inline;">
-                            <input type="text" name="message_content" placeholder="Enter your message" required>
+                            <input type="text" name="message_content" placeholder="Enter your message.." required>
                             <button type="submit" class="send-message-button">Send Message</button>
                         </form>
                         {% endif %}
