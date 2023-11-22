@@ -20,11 +20,14 @@
     </div>
 
     <div class="navbar">
-        <button type="button" class="navbar-item" onclick="home()">Home</button>
-        <button type="button" class="navbar-item" onclick="profile()">Profile</button>
-        <button type="button" class="navbar-item" onclick="search()">Search</button>
-        <button type="button" class="navbar-item" onclick="messages()">Messages</button>
-        <button type="button" class="navbar-item" onclick="about()">About</button>
+        <button class="navbar-toggler" onclick=toggleNavbar()>☰</button>
+        <div class="navbar-items" id="navbarItems">
+            <button type="button" class="navbar-item" onclick="home()">Home</button>
+            <button type="button" class="navbar-item" onclick="profile()">Profile</button>
+            <button type="button" class="navbar-item" onclick="search()">Search</button>
+            <button type="button" class="navbar-item" onclick="messages()">Messages</button>
+            <button type="button" class="navbar-item" onclick="about()">About</button>
+        </div>
     </div>
 
     <h2>User settings:</h2>
@@ -41,6 +44,10 @@
 </body>
 
 <script>
+    function toggleNavbar() {
+        var navbarItems = document.getElementById("navbarItems");
+        navbarItems.style.display = (navbarItems.style.display === "none" || navbarItems.style.display === "") ? "block" : "none";
+    }
     function logout() {
         window.location.href = "{{ url_for('logout') }}";
     }
