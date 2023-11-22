@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import os
@@ -32,6 +32,22 @@ def create_post():
     db.session.add(new_post)
     db.session.commit()
     return redirect(url_for('home'))
+
+# Change user password
+@app.route('/change_password', methods=['PUT'])
+@login_required
+def change_password():
+    if request.method == 'PUT':
+        # Assuming you send the new password in the request body
+        new_password = request.form.get('new_password')
+        # Update the current user's password
+        if current_user.password != new_password:
+            current_user.password = new_password
+        else:return jsonify({'message': 'Error, new password can not be your new one!'})
+        # Commit the changes to the database
+        db.session.commit()
+    return jsonify({'message': 'Password changed successfully!'})
+
 
 @app.route('/delete_post/<int:post_id>', methods=['POST'])
 @login_required
@@ -97,11 +113,25 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+
+        # Check if the username already exists in the database
+        existing_user = User.query.filter_by(username=username).first()
+
+        if existing_user:
+            flash('Username already in use. Please choose a different username.', 'warning')
+            return redirect(url_for('register', message='Username already in use'))
+
+        # If the username is not in use, add the new user to the database
         new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
+
+        flash('Account created successfully. You can now log in.', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html')
+
+    # Pass the flash message to the template
+    message = request.args.get('message', None)
+    return render_template('register.html', message=message)
 
 
 @app.route('/', methods=['GET', 'POST'])

@@ -34,7 +34,12 @@
 
     <div class="content-container">
         <h3>Username: {{ current_user.username }}</h3>
-        <button type="button" class="changepassword-button">Change password</button>
+        <p>If you want to change your password, you can do it by typing it into the input field below</p>
+        <form id="changePasswordForm">
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="new_password" required>
+            <button type="button" onclick="changePassword()">Change Password</button>
+          </form>
     </div>
 
     <footer class="footer">
@@ -42,8 +47,24 @@
         <h4 class="impressum">Kadocsa Levente ○ Székely Katalin ○ Szabó Dóra ○ Kovács Péter ○ Tóth Balázs</h4>
     </footer>
 </body>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
+    function changePassword() {
+        var newPassword = document.getElementById('newPassword').value;
+  
+        // Make an AJAX request to change the password
+        $.ajax({
+          url: '/change_password',
+          type: 'PUT',
+          data: { new_password: newPassword },
+          success: function(response) {
+            alert(response.message);
+          },
+          error: function(error) {
+            alert('Error changing password.');
+          }
+        });
+      }
     function toggleNavbar() {
         var navbarItems = document.getElementById("navbarItems");
         navbarItems.style.display = (navbarItems.style.display === "none" || navbarItems.style.display === "") ? "block" : "none";
