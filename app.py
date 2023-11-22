@@ -97,11 +97,25 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+
+        # Check if the username already exists in the database
+        existing_user = User.query.filter_by(username=username).first()
+
+        if existing_user:
+            flash('Username already in use. Please choose a different username.', 'warning')
+            return redirect(url_for('register', message='Username already in use'))
+
+        # If the username is not in use, add the new user to the database
         new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
+
+        flash('Account created successfully. You can now log in.', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html')
+
+    # Pass the flash message to the template
+    message = request.args.get('message', None)
+    return render_template('register.html', message=message)
 
 
 @app.route('/', methods=['GET', 'POST'])
