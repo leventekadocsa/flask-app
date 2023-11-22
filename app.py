@@ -59,8 +59,10 @@ class Message(db.Model):
 @app.route('/messages')
 @login_required
 def messages():
+    users = User.query.all()
+    posts = Post.query.all()
     messages = Message.query.filter(Message.receiver_id == current_user.id)
-    return render_template('messages.html', messages=messages)
+    return render_template('messages.html', messages=messages, users=users, posts=posts)
 
 
 # Add a new route to handle sending messages
@@ -83,12 +85,12 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 # Define routes for your application
-@app.route('/')
+@app.route('/home')
 @login_required
 def home():
     users = User.query.all()  # Retrieve all users from the database
     posts = Post.query.all()
-    return render_template('home.html', posts=posts)
+    return render_template('home.html', posts=posts, users=users)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -102,7 +104,7 @@ def register():
     return render_template('register.html')
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -126,10 +128,11 @@ def logout():
 def profile():
     return render_template('profile.html')
 
-@app.route('/search')
+@app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
-    return render_template('search.html')
+    posts = Post.query.all()
+    return render_template('search.html', posts=posts)
 
 @app.route('/about')
 @login_required
