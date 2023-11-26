@@ -4,6 +4,15 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
+    background-color: #4caf50;
+
+}
+.register-container{
+    background-color: #333;
+    margin-top:100px;
+    padding-top:50px;
+    padding-bottom: 100px;
+    border-radius: 8px;
 }
 
 button {
@@ -17,7 +26,7 @@ button {
 }
 
 h1 {
-    color: #333;
+    color: #4caf50;
 }
 
 form {

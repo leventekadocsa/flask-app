@@ -1,67 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GymConnect - Search</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/search.css') }}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='/search.css') }}"
+    />
+  </head>
+  <body>
     <div class="header">
-        <div class="welc">
-            <h1 class="welcome">Search</h1>
+      <div class="welc">
+        <h1 class="welcome">Search</h1>
+      </div>
+      <div class="user-button">
+        <div class="user">
+          <h1>{{ current_user.username[0] }}</h1>
         </div>
-        <div class="user-button">
-            <div class="user">
-                <h1>{{ current_user.username[0] }}</h1>
-            </div>
-            <button type="button" class="logout-button" onclick="logout()">Logout</button>
-        </div>
+        <button type="button" class="logout-button" onclick="logout()">
+          Logout
+        </button>
+      </div>
     </div>
 
     <div class="navbar">
+      <button class="navbar-toggler" onclick="toggleNavbar()">☰</button>
+      <div class="navbar-items" id="navbarItems">
         <button type="button" class="navbar-item" onclick="home()">Home</button>
-        <button type="button" class="navbar-item" onclick="profile()">Profile</button>
-        <button type="button" class="navbar-item" onclick="search()">Search</button>
-        <button type="button" class="navbar-item" onclick="messages()">Messages</button>
-        <button type="button" class="navbar-item" onclick="about()">About</button>
+        <button type="button" class="navbar-item" onclick="profile()">
+          Profile
+        </button>
+        <button type="button" class="navbar-item" onclick="search()">
+          Search
+        </button>
+        <button type="button" class="navbar-item" onclick="messages()">
+          Messages
+        </button>
+        <button type="button" class="navbar-item" onclick="about()">
+          About
+        </button>
+      </div>
     </div>
 
     <h2>Search in posts:</h2>
-    <div class="search-container">
-        <input type="text" id="searchinput" onkeyup="" placeholder="Search.." title="Type in something..">
-    </div>
+    <form class="search-container" method="POST" action="">
+      <input
+        type="text"
+        name="search_term"
+        id="search_term"
+        placeholder="Search.."
+        title="Type in something.."
+      />
+      <button type="submit" class="search-btn">Search</button>
+    </form>
 
     <h2>Results:</h2>
+    <ul>
+      {% for post in posts %}
+      <li class="post-item">
+        <h3>
+          <a href="{{ url_for('home', post_id=post.id) }}"
+            >Go to Post: {{ post.title }}</a
+          >
+        </h3>
+        <p>{{ post.content }}</p>
+      </li>
+      {% endfor %}
+    </ul>
 
     <footer class="footer">
-        <h4 class="impressum">University of Győr - Projektwork 1-2.</h4>
-        <h4 class="impressum">Kadocsa Levente ○ Székely Katalin ○ Szabó Dóra ○ Kovács Péter ○ Tóth Balázs</h4>
+      <h4 class="impressum">University of Győr - Projektwork 1-2.</h4>
+      <h4 class="impressum">
+        Kadocsa Levente ○ Székely Katalin ○ Szabó Dóra ○ Kovács Péter ○ Tóth
+        Balázs
+      </h4>
     </footer>
-</body>
+  </body>
 
-<script>
+  <script>
+    function toggleNavbar() {
+      var navbarItems = document.getElementById("navbarItems");
+      navbarItems.style.display =
+        navbarItems.style.display === "none" || navbarItems.style.display === ""
+          ? "block"
+          : "none";
+    }
     function logout() {
-        window.location.href = "{{ url_for('logout') }}";
+      window.location.href = "{{ url_for('logout') }}";
     }
 
     function home() {
-        window.location.href = "{{ url_for('home') }}";
+      window.location.href = "{{ url_for('home') }}";
     }
 
     function profile() {
-        window.location.href = "{{ url_for('profile') }}";
+      window.location.href = "{{ url_for('profile') }}";
     }
 
     function search() {
-        window.location.href = "{{ url_for('search') }}";
+      window.location.href = "{{ url_for('search') }}";
     }
 
     function messages() {
-        window.location.href = "{{ url_for('messages') }}";
+      window.location.href = "{{ url_for('messages') }}";
     }
 
     function about() {
-        window.location.href = "{{ url_for('about') }}";
+      window.location.href = "{{ url_for('about') }}";
     }
-</script>
+    function search() {
+      document.querySelector(".search-container").submit();
+    }
+  </script>
+</html>

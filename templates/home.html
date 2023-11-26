@@ -1,107 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GymConnect - Home Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/home.css') }}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='/home.css') }}"
+    />
+  </head>
+  <body>
     <div class="header">
-        <div class="welc">
-            <h1 class="welcome">Welcome, {{ current_user.username }}!</h1>
+      <div class="welc">
+        <h1 class="welcome">Welcome, {{ current_user.username }}!</h1>
+      </div>
+      <div class="user-button">
+        <div class="user">
+          <h1>{{ current_user.username[0] }}</h1>
         </div>
-        <div class="user-button">
-            <div class="user">
-                <h1>{{ current_user.username[0] }}</h1>
-            </div>
-            <button type="button" class="logout-button" onclick="logout()">Logout</button>
-        </div>
+        <button type="button" class="logout-button" onclick="logout()">
+          Logout
+        </button>
+      </div>
     </div>
 
     <div class="navbar">
-        <button type="button" class="navbar-item" onclick="home()">Home</button>
-        <button type="button" class="navbar-item" onclick="profile()">Profile</button>
-        <button type="button" class="navbar-item" onclick="search()">Search</button>
-        <button type="button" class="navbar-item" onclick="messages()">Messages</button>
-        <button type="button" class="navbar-item" onclick="about()">About</button>
+      <button class="navbar-toggler" onclick="toggleNavbar()">☰</button>
+      <div
+        class="navbar-items"
+        id="navbarItems"
+        style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+      >
+        <button
+          type="button"
+          class="navbar-item"
+          onclick="home()"
+          style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+        >
+          Home
+        </button>
+        <button type="button" class="navbar-item" onclick="profile()">
+          Profile
+        </button>
+        <button type="button" class="navbar-item" onclick="search()">
+          Search
+        </button>
+        <button type="button" class="navbar-item" onclick="messages()">
+          Messages
+        </button>
+        <button
+          type="button"
+          class="navbar-item"
+          onclick="about()"
+          style="border-top-right-radius: 5px; border-bottom-right-radius: 5px"
+        >
+          About
+        </button>
+      </div>
     </div>
 
     <main>
-        <!-- Add a form for creating new posts -->
-        <div class="post-form">
-            <h2>Create a New Post:</h2>
-            <form action="{{ url_for('create_post') }}" method="post">
-                <div class="new-post-container">
-                    <input type="text" name="title" class="post-title" placeholder="Enter your post title" required><br>
-                    <textarea name="content" class="post-content" rows="10" placeholder="Enter your post content" required></textarea>
-                    <button type="submit" class="post-button">Post</button>
-                </div>
+      <!-- Add a form for creating new posts -->
+      <div class="post-form">
+        <h2>Create a New Post:</h2>
+        <form action="{{ url_for('create_post') }}" method="post">
+          <div class="new-post-container">
+            <input
+              type="text"
+              name="title"
+              class="post-title"
+              placeholder="Enter your post title"
+              required
+            /><br />
+            <textarea
+              name="content"
+              class="post-content"
+              rows="10"
+              placeholder="Enter your post content"
+              required
+            ></textarea>
+            <button type="submit" class="post-button">Post</button>
+          </div>
+        </form>
+      </div>
+
+      <h2>Posts:</h2>
+      <ul class="post-list">
+        {% for post in posts %}
+        <li class="post-item">
+          <div id="post_{{ post.id }}" class="post">
+            <!-- Add the id attribute here -->
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content }}</p>
+          </div>
+          <div class="creator">
+            {% for user in users %} {% if user.id == post.user_id %} {{
+            user.username }} {% endif %} {% endfor %}
+          </div>
+          <div class="react">
+            <!-- Add a message field and a message button for the other users' posts -->
+            {% if current_user.id != post.user_id %}
+            <form
+              action="{{ url_for('send_message', user_id=post.user_id) }}"
+              method="post"
+              style="display: inline"
+            >
+              <input
+                type="text"
+                name="message_content"
+                placeholder="Enter your message.."
+                required
+              />
+              <button type="submit" class="send-message-button">
+                Send Message
+              </button>
             </form>
-        </div>
+            {% endif %}
 
-        <h2>Posts:</h2>
-        <ul class="post-list">
-            {% for post in posts %}
-                <li class="post-item">
-                    <div class="post">
-                        <h3>{{ post.title }}</h3>
-                        <p>{{ post.content }}</p>
-                    </div>
-                    <div class="react">
-                        <!-- Add a message field and a message button for the other users' posts -->
-                        {% if current_user.id != post.user_id %}
-                        <form action="{{ url_for('send_message', user_id=post.user_id) }}" method="post" style="display:inline;">
-                            <input type="text" name="message_content" placeholder="Enter your message" required>
-                            <button type="submit" class="send-message-button">Send Message</button>
-                        </form>
-                        {% endif %}
-
-                        <!-- Add a delete button for the user's own posts -->
-                        {% if current_user.id == post.user_id %}
-                            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post" style="display:inline;">
-                                <button type="submit" class="delete-post-button">Delete</button>
-                            </form>
-                        {% endif %}
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-
+            <!-- Add a delete button for the user's own posts -->
+            {% if current_user.id == post.user_id %}
+            <form
+              action="{{ url_for('delete_post', post_id=post.id) }}"
+              method="post"
+              style="display: inline"
+            >
+              <button type="submit" class="delete-post-button">Delete</button>
+            </form>
+            {% endif %}
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
     </main>
     <footer class="footer">
-        <h4 class="impressum">University of Győr - Projektwork 1-2.</h4>
-        <h4 class="impressum">Kadocsa Levente ○ Székely Katalin ○ Szabó Dóra ○ Kovács Péter ○ Tóth Balázs</h4>
+      <h4 class="impressum">University of Győr - Projektwork 1-2.</h4>
+      <h4 class="impressum">
+        Kadocsa Levente ○ Székely Katalin ○ Szabó Dóra ○ Kovács Péter ○ Tóth
+        Balázs
+      </h4>
     </footer>
-</body>
+  </body>
 </html>
 
 <script>
-    function logout() {
-        window.location.href = "{{ url_for('logout') }}";
-    }
+  function toggleNavbar() {
+    var navbarItems = document.getElementById("navbarItems");
+    navbarItems.style.display =
+      navbarItems.style.display === "none" || navbarItems.style.display === ""
+        ? "block"
+        : "none";
+  }
+  function logout() {
+    window.location.href = "{{ url_for('logout') }}";
+  }
 
-    function home() {
-        window.location.href = "{{ url_for('home') }}";
-    }
+  function home() {
+    window.location.href = "{{ url_for('home') }}";
+  }
 
-    function profile() {
-        window.location.href = "{{ url_for('profile') }}";
-    }
+  function profile() {
+    window.location.href = "{{ url_for('profile') }}";
+  }
 
-    function search() {
-        window.location.href = "{{ url_for('search') }}";
-    }
+  function search() {
+    window.location.href = "{{ url_for('search') }}";
+  }
 
-    function messages() {
-        window.location.href = "{{ url_for('messages') }}";
-    }
+  function messages() {
+    window.location.href = "{{ url_for('messages') }}";
+  }
 
-    function about() {
-        window.location.href = "{{ url_for('about') }}";
+  function about() {
+    window.location.href = "{{ url_for('about') }}";
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    var post_id = "{{ post_id }}";
+    if (post_id) {
+      var postElement = document.getElementById("post_" + post_id);
+      if (postElement) {
+        // Calculate the offset to scroll the selected post to the middle of the page
+        var offset = postElement.offsetTop - window.innerHeight / 2;
+        window.scrollTo({ top: offset, behavior: "smooth" });
+
+        // Access the parent <li> element and set its background color to green
+        var liElement = postElement.closest("li");
+        if (liElement) {
+          // Add transition effect to the background color change
+          liElement.style.transition = "background-color 1s ease";
+
+          liElement.style.backgroundColor = "#28a745";
+
+          // Revert the background color after 1 second (1000 milliseconds)
+          setTimeout(function () {
+            liElement.style.backgroundColor = "";
+          }, 1000);
+        }
+      }
     }
+  });
 </script>
-
-
-
-

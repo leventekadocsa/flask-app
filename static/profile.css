@@ -1,116 +1,166 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 button {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 10px;
-    padding-top: 2px;
-    border-radius: 5px;
-    height: 150px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px;
+  padding-top: 2px;
+  border-radius: 5px;
+  height: 150px;
 }
 
 .welc {
-    width: auto;
-    height: 100px;
-    margin-top: 25px;
-    padding: 10px;
-    float: left;
+  width: auto;
+  height: 100px;
+  margin-top: 25px;
+  padding: 10px;
+  float: left;
 }
 
 .user-button {
-    position: relative;
-    float: right;
-    margin-top: 7px;
-    width: 100px;
-    height: 150px;
+  position: relative;
+  float: right;
+  margin-top: 7px;
+  width: 100px;
+  height: 150px;
 }
 
 .user {
-    background-color: #f4f4f4;
-    color: #333;
-    position: relative;
-    font-size: 20px;
-    border-radius: 5px;
-    width: 100px;
-    height: 100px;
-    text-align: center;
-    float: right;
+  background-color: #f4f4f4;
+  color: #333;
+  position: relative;
+  font-size: 20px;
+  border-radius: 5px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  float: right;
 }
 
 .logout-button {
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    width: 100px;
-    margin-top: 10px;
-    float: right;   
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  width: 100px;
+  margin-top: 10px;
+  float: right;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
 }
 
 .navbar {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    height: 50px;
-    margin-top: 10px;
-    padding: 0px;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+  padding: 0px;
 }
 
 .navbar-item {
-    background-color: #28a745;
-    color: #f4f4f4;
-    cursor:pointer;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    float: left;
-    text-align: center;
-    width: 20%;
-    height: 50px;
-    padding: 0 0 0 0;
-    border: none;
+  background-color: #28a745;
+  color: #f4f4f4;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  float: left;
+  text-align: center;
+  width: 20%;
+  height: 50px;
+  padding: 0 0 0 0;
+  border: none;
 }
 
 .navbar-item:hover {
-    background-color: #333;
+  background-color: #333;
 }
 
 .content-container {
-    background-color: #f4f4f4;
-    color: #333;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: #333;
+  background-color: #f4f4f4;
+  color: #333;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: #333;
 }
 
 .footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-top: 10px;
-    padding: 10px;
-    padding-top: 2px;
-    border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10px;
+  padding: 10px;
+  padding-top: 2px;
+  border-radius: 5px;
 }
 
 .changepassword-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 8px 16px;
+}
+
+h2 {
+    color: #333;
+}
+@media screen and (width < 600px) {
+  .navbar-items {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    overflow: auto;
+    /* Adjust the top value based on your header height */
+    left: 0;
+    width: 100%;
+    background-color: #f4f4f4; /* Add a background color for better visibility */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Add a box shadow for a dropdown effect */
+  }
+
+  .navbar-toggler {
+    display: block;
+  }
+
+  .navbar-item {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .welc{
+    max-inline-size: 200px;
+  }
+  .welcome{
+    font-size:30px;
+  }
+}
+
+@media screen and (width > 601px) {
+  .navbar-toggler {
+    display: none;
+  }
+
+  .navbar-items {
+    display: flex;
+    position: static; /* Reset the position */
+    background-color: transparent; /* Reset the background color */
+    box-shadow: none; /* Reset the box shadow */
+  }
+
+  .navbar-item {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
