@@ -1,6 +1,6 @@
 body {
-    background-color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 button {
@@ -8,22 +8,22 @@ button {
 }
 
 .header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    padding-top: 2px;
-    border-radius: 5px;
-    height: 150px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  padding-top: 2px;
+  border-radius: 5px;
+  height: 150px;
 }
 
 .footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    padding-top: 2px;
-    border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  padding-top: 2px;
+  border-radius: 5px;
 }
 
 .welc {
@@ -33,7 +33,6 @@ button {
   padding: 10px;
   float: left;
 }
-
 
 .user-button {
   position: relative;
@@ -56,26 +55,27 @@ button {
 }
 
 .logout-button {
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    width: 100px;
-    margin-top: 10px;
-    float: right;   
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  width: 100px;
+  margin-top: 10px;
+  float: right;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
 }
 
 .post-form {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
-.post-title, .post-content {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+.post-title,
+.post-content {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 .post-button {
@@ -96,18 +96,18 @@ button {
 }
 
 .post-list {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .post-item {
-    background-color: #f4f4f4;
-    margin-bottom: 5px;
-    padding: 10px;
-    padding-top: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    border-color: #333;
+  background-color: #f4f4f4;
+  margin-bottom: 5px;
+  padding: 10px;
+  padding-top: 2px;
+  border-style: solid;
+  border-radius: 5px;
+  border-color: #333;
 }
 
 .post-item h3 {
@@ -116,14 +116,14 @@ button {
 }
 
 .send-message-button {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    padding: 8px 16px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  padding: 8px 16px;
 }
 
 .new-post-container {
@@ -135,8 +135,8 @@ button {
   border-color: #333;
 }
 
-h2{
-    color: #333;
+h2 {
+  color: #333;
 }
 
 ul {
@@ -157,16 +157,16 @@ li {
 }
 
 .navbar-item {
-    background-color: #28a745;
-    color: #f4f4f4;
-    cursor:pointer;
-    font-size: 20px;
-    float: left;
-    text-align: center;
-    width: 20%;
-    height: 50px;
-    padding: 0 0 0 0;
-    border: none;
+  background-color: #28a745;
+  color: #f4f4f4;
+  cursor: pointer;
+  font-size: 20px;
+  float: left;
+  text-align: center;
+  width: 20%;
+  height: 50px;
+  padding: 0 0 0 0;
+  border: none;
 }
 
 .navbar-item:hover {
@@ -174,35 +174,35 @@ li {
 }
 
 .delete-post-button {
-    background-color: #ff392e;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-top: 5px;
-    padding: 8px 16px;
-    border-radius: 5px;
+  background-color: #ff392e;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+  padding: 8px 16px;
+  border-radius: 5px;
 }
 
 .creator {
-    background-color: #ff9900;
-    color: #fff;
-    width: 100px;
-    height: 15px;
-    border: none;
-    border-radius: 5px;
-    
-    text-align: center;
-    margin-top: 10px;
-    padding: 8px 16px;
-    font-weight: bold;
+  background-color: #ff9900;
+  color: #fff;
+  width: 100px;
+  height: 15px;
+  border: none;
+  border-radius: 5px;
+
+  text-align: center;
+  margin-top: 10px;
+  padding: 8px 16px;
+  font-weight: bold;
 }
 @media screen and (width < 600px) {
   .navbar-items {
     display: none;
     flex-direction: column;
-    position:absolute;
+    position: absolute;
     overflow: auto;
- /* Adjust the top value based on your header height */
+    /* Adjust the top value based on your header height */
     left: 0;
     width: 100%;
     background-color: #f4f4f4; /* Add a background color for better visibility */
@@ -217,7 +217,7 @@ li {
     width: 100%;
     box-sizing: border-box;
   }
-  .welc{
+  .welc {
     max-inline-size: 30px;
   }
 }
@@ -238,4 +238,5 @@ li {
     width: 100%;
     box-sizing: border-box;
   }
+  /* Add this to your home.css file or include it in a style block in your HTML */
 }
